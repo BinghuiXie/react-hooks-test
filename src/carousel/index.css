@@ -1,0 +1,38 @@
+button{
+    background: none;
+    border: none;
+    outline: none;
+}
+.controls{
+    height: 80px;
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    left: 0;
+    display: flex;
+    justify-content: space-between;
+}
+.progress-bar{
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 20px;
+    background-color: rgba(255, 255, 255, .5);
+}
+.slide-nav-item{
+    width: 24px;
+    height: 24px;
+    border-radius: 50%;
+    display: inline-block;
+    margin-left: 24px;
+    cursor: pointer;
+}
+.control-button-wrapper{
+    display: inline-block;
+    margin-right: 30px;
+    cursor: pointer;
+}
+.control-button-wrapper:active{
+    transform: scale(1.02);
+}
