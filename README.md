@@ -180,4 +180,37 @@ useEffect(() => {
 }, [count]);
 ```
 在上面这个例子中，只有 count 变化了才会去重新执行 effect，一般来说建议把 effect 里面涉及到的变量都加到参数列表里面，如果数组中有多个变量，React将重新运行该 effect，即使其中只有一个与之前的不同。
-如果想只运行和清除这个 effect 一次，可以传入一个空数组：<i>[]</i>
+如果想只运行和清除这个 effect 一次，可以传入一个空数组：<i>[]</i> 
+
+### custom hooks
+除了 React 官方提供的几个 Hooks 之外，还可以制定自己的 Hooks，制定自己的 Hooks 可以将组件的逻辑提取出来，变成可以复用的函数。
+<i>Custom Hooks</i>其实就是一个函数，它以 <i>use</i>开头，在其内部可以使用官方的 Hooks：
+```javascript
+function useProgress(animate, time) {
+  const [ progress, setProgress ] = useState(0);
+  
+  useEffect(
+    () => {
+      if (animate) {
+        let animateTemp = null;
+        let start = null;
+        let step = timestamp => {
+          if (!start) {
+            start = timestamp;
+          }
+          let progress = timestamp - start;
+          setProgress(progress);
+          if (progress < time) {
+            animateTemp = requestAnimationFrame(step);
+          }
+        };
+        animateTemp = requestAnimationFrame(step);
+        return () => cancelAnimationFrame(animateTemp)
+      }
+    },
+    [animate, time]
+  );
+  return animate ? Math.min(progress / time, time) : 0;
+}
+```
+<i>useProgress</i>这个函数就是一个<i>Custom Hook</i>，这个 Hooks 的作用是根据传入的时间(time)返回一个进度条的宽度比例。
