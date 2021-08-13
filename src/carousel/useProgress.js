@@ -18,6 +18,7 @@ function useProgress(animate, time) {
             animateTemp = requestAnimationFrame(step);
           }
         };
+        console.log(progress);
         animateTemp = requestAnimationFrame(step);
         return () => cancelAnimationFrame(animateTemp)
       }
